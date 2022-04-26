@@ -1,16 +1,35 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<!-- Imports -->
+<!--------------- Setup ------------->
 <?php
-    session_start();
 
+    # setup
+    session_start();
     include_once '../includes/coffeeData.php';
 
     $currentPage = "Place Order";
-?>
 
-<!-- Html Page -->
-<html lang="en">
+    # test coffeeData.php     
+        // print_r( $_POST);
+        // echo '<br>';
+        // print_r($_POST['americano']);
+
+    /* foreach ($coffeeData as $coffee => $cost) {
+            print_r($_POST[$coffee]);
+            echo $_POST[$coffee];
+            echo "<br>";
+    }*/
+
+    # dump array to store all orders in system
+    var_dump($_SESSION['orderDataStore']);
+        
+    # Only display page if user came via index.php
+    if ($_GET['placeOrder']) {
+        
+        $_SESSION['customer'] = $_GET['username']; 
+?>
+<!------------------- Html Page ------------------------->
 
     <head>
         <meta charset="UTF-8">
@@ -24,7 +43,7 @@
 
     <body>
 
-        <!-- Header -->
+    <!-------------------------- Header -------------------------->
         <header>
             
             <h1 class="title">Blue Moon Coffee</h1>
@@ -32,49 +51,51 @@
             <div id="order-contols" class="order-controls">
                 <div id="customer">
                     <?php 
-                        echo "Please place your order here " . $_SESSION['customer'];
+                        echo "Please place your order here <b>" . $_SESSION['customer'] . "</b>"; 
                     ?>
                 </div>
                 <div id="cancel">
-                    <button>Cancel Order</button>
+                    <form action="../includes/cancelOrder.php" method="get">
+                        <input type="submit" value="Cancel Order" name="cancelOrder">
+                    </form>
                 </div>
             </div>
 
         </header>
-        <!-- Header -->
+    <!-------------------------- Header -------------------------->
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <!-- Menu -->
+    <!-------------------------- Menu -------------------------->
         <main>
             <form action="./allOrders.php" method="post" id="menu-selection" class="form-row">
                 <?php
                 foreach ($coffeeData as $coffee => $price) {
                 ?>
                     <!-- Column for coffees -->
-                    <div class="item-row">
+                    <fieldset class="item-row">
                         <?php echo $coffee; ?>
-                    </div>
+                    </fieldset>
 
-                    <div class="item-row">
+                    <fieldset class="item-row">
                         R<?php echo $price; ?>
-                    </div>
+                    </fieldset>
                         
                     <!-- column for user inputs -->
-                    <input type="number" name="<?php echo $coffee; ?>" placeholder="quantity">
+                    <input type="number" name="<?php echo $coffee; ?>" placeholder="quantity" value="0">
                 <?php
                 }
                 ?>
-                <span style="visibility: hidden;">GRID FILLER</span>
-                <span style="visibility: hidden;">GRID FILLER</span>
-                <input type="submit" value="Order" name="order" class="order-btn">
+                <fieldset style="visibility: hidden;">GRID FILLER</fieldset>
+                <fieldset style="visibility: hidden;">GRID FILLER</fieldset>
+                <input type="submit" value="Order" name="newOrder" class="order-btn">
             </form>
         </main>
-        <!-- Menu -->
+    <!-------------------------- Menu -------------------------->
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <!-- Footer -->
+    <!-------------------------- Footer -------------------------->
         <footer>
             <span>
                 IG | @bluemoon
@@ -89,8 +110,14 @@
                 Copyright | @ 2022 Blue Moon Coffee
             </span>
         </footer>
-        <!-- Footer -->
+    <!-------------------------- Footer -------------------------->
 
     </body>
 
 </html>
+
+<?php
+    } else {
+        echo "Error 403: Unauthorized Access";
+    }
+?>
