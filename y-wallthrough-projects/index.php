@@ -6,43 +6,6 @@
     $choice = $_POST['submit'];
 
     $dataStore = [];
-
-    // creates new
-    function create($id, $flavorInput) {
-
-        $newDonut = [
-            "id" => $id,
-            "flavour" => $flavorInput
-        ];
-
-        array_push($newDonut);
-    }
-
-    // search specific donut
-    function read($id) {
-
-    }
-
-    // updates value fo donut
-    function update($id, $newDonut) {
-
-    }
-
-    // delete donut by id
-    function delete($id) {
-
-    }
-
-    switch ($choice) {
-        case 'create':
-            create();
-            break;
-        
-        default:
-            # code...
-            break;
-    }
-    
 ?>
 
 <head>
