@@ -4,6 +4,10 @@
     <!-- PHP Setup -->
     <?php
 
+        /* Print Template
+         *    <?php echo ""; ?>
+         */
+
         # - Titles -
             $title = 'CodeSpace App Factory';
             $subTitle = 'Developing the digital skills, coding capabilities and workplace readiness of young graduates.';
@@ -53,9 +57,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            <?php echo "$title"; ?>
-        </title>
+        <title>PHP Introduction</title>
         <link rel="stylesheet" href="./style.css">
     </head>
 
@@ -83,15 +85,16 @@
             
                 <h2>
                     <?php echo " $productsTitle "; ?>
-                </h2>
+                </h2> 
+                                   
 
                 <?php for ($i=0 ; $i < count($productsArray) ; $i++) { 
-                    
+
                     echo " 
                         <div class='box'>
-                            <a href='#'> 
-                                <b> " . $productsArray[$i] . " </b>
-                            </a> 
+                            <form action='./products.php' method='get'>
+                                <input class='call-to-action-btn' type='submit' name='productSubmit' value='". $productsArray[$i] ."'>
+                            </form>
                             <br><br>
                             
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque saepe odio ex beatae nulla cum 
@@ -131,9 +134,11 @@
                         # Student Call to Action
                         if ($studentVacancies) {
                             echo "
-                            <button class='call-to-action-btn'>
-                                Enroll as a Student Now
-                            </button>
+                            <a href='./students.php'>
+                                <button class='call-to-action-btn'>
+                                    Enroll as a Student Now
+                                </button>
+                            </a>
                             ";
                         } else {
                             echo "
@@ -192,29 +197,22 @@
                         echo "<option value='$applyType'> $applyDisplay </option>";
                     }
                     ?>
-                    <!-- 
-                    <option value="student">Student Application</option>
-                    <option value="client">Project Application</option>
-                    <option value="enquiry">General Enquiry</option> 
-                    -->
+
                 </select>
                 <input type="submit" name="submit" value="Submit" class="call-to-action-btn">
             </form>
 
             <div class="contact">
-                <!-- ForEach Loop for Assoc Array -->
                 <?php
                     foreach ($contactDetails as $type => $detail) { 
                     
                         echo " <h3> $type : $detail </h3>";
                     }
                 ?>
-                <!-- ForEach Loop for Assoc Array -->
             </div>
 
         </footer>
         <!---------------------------- Footer ---------------------------->
 
     </body>
-
 </html>
